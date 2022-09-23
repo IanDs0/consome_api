@@ -1,4 +1,4 @@
-import React, {useState, useEffects} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import api from './api';
 import Produtos from './produtos';
@@ -19,6 +19,19 @@ function App() {
   if (procura === false){
     getProdutos()
   }
+  const escrevendo = (tex) =>{
+    if (tex!=null){
+      setTexto(texto+tex)
+    }else if(tex==null){
+      setTexto(texto.substring(0))
+    }
+  }
+
+  const proc = () =>{
+    const newProduto = produto.filter(produtos => produtos.id==texto);
+    
+    setProduto (newProduto);
+  }
 
   const [texto,setTexto] = useState('');
 
@@ -28,11 +41,11 @@ function App() {
         <div>
           <labels>
             <input type="text"
-              onChangeCapture={() => setTexto()}
-              placeholder="Digite o que seseja procurar"
+              onChangeCapture={(onChange) => escrevendo(onChange.nativeEvent.data)}
+              placeholder="Digite o id do que procurar"
             />
           </labels>
-          <button onClick={console.log(texto)}>Procurar</button>
+          <button onClick={proc}>Procurar</button>
         </div>
         {produto.map(
           (produtos) => Produtos(produtos)       
