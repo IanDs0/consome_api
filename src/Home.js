@@ -11,7 +11,9 @@ const Home = () => {
     let Username = ''
     let Password = ''
 
-    async function getProdutos (){
+    async function getProdutos (event){
+
+        event.preventDefault();
 
         const datat = await api.get(Procura,{
         auth : {
@@ -80,11 +82,17 @@ const Home = () => {
     return (
     <>
     
-        <h1>Promosim</h1>
+        <h1>Get de API</h1>
 
-        <input type="text" onChange={handleChange} value={message}/>
+        <form onSubmit={getProdutos} >
 
-        <button onClick={getProdutos}>Busca</button>
+            <label>
+
+            <input type="text" onChange={handleChange} value={message}/>
+            </label>
+            {/* <button onClick={getProdutos}>Busca</button> */}
+            <input type="submit" />
+        </form>
         {produto?.map(
           (Produtos)=> Produto(Produtos)
         )}
